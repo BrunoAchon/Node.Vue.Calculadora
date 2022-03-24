@@ -57,15 +57,19 @@ export default {
           this.values[0] = eval(
             `${this.values[0]} ${currentOperation} ${this.values[1]}`
           );
+          if (isNaN(this.values[0] || !isFinite(this.values[0]))) {
+            this.clearMemory();
+            return;
+          }
         } catch (e) {
           this.$emit("onError", e);
         }
-        
-        this.values[1] = 0
-        this.displayValue = this.values[0]
-        this.operation = equals ? null : operation // se o operador for "=" termina a operação senao coloca a nova operação
-        this.current = equals ? 0 : 1 // se digitou "=" continua mexedo no primeiro senao passa a mexer no segundo
-        this.clearDisplay = !equals // limpa o display apos o "=" (no proximo click)
+
+        this.values[1] = 0;
+        this.displayValue = this.values[0];
+        this.operation = equals ? null : operation; // se o operador for "=" termina a operação senao coloca a nova operação
+        this.current = equals ? 0 : 1; // se digitou "=" continua mexedo no primeiro senao passa a mexer no segundo
+        this.clearDisplay = !equals; // limpa o display apos o "=" (no proximo click)
       }
     },
     addDigit(n) {
